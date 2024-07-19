@@ -1,0 +1,36 @@
+const questionElement = document.getElementById('question');
+const answerElement = document.getElementById('answer');
+const nextQuestionButton = document.getElementById('next-question');
+
+let currentQuestion = 0;
+let score = 0;
+
+const questions = [
+	{ question: 'What is the capital of France?', answer: 'Paris' },
+	{ question: 'What is the largest planet in our solar system?', answer: 'Jupiter' },
+	{ question: 'What is the smallest country in the world?', answer: 'Vatican City' }
+];
+
+nextQuestionButton.addEventListener('click', () => {
+	currentQuestion++;
+	if (currentQuestion >= questions.length) {
+		currentQuestion = 0;
+	}
+	const question = questions[currentQuestion].question;
+	const answer = questions[currentQuestion].answer;
+	questionElement.textContent = question;
+	answerElement.textContent = '';
+});
+
+answerElement.addEventListener('keypress', (event) => {
+	if (event.key === 'Enter') {
+		const userAnswer = answerElement.value;
+		if (userAnswer === questions[currentQuestion].answer) {
+			score++;
+			alert(`Correct! Your score is ${score}/${questions.length}`);
+		} else {
+			alert(`Incorrect. The correct answer is ${questions[currentQuestion].answer}`);
+		}
+		answerElement.value = '';
+	}
+});
